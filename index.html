@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Demo Supabase</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabaseClient.js"></script>
+    <script src="js/datos.js"></script>
+    <script src="js/gestion.js"></script>
+  </head>
+  <body>
+    <main class="contenedor">
+      <header class="cabecera">
+        <div>
+          <p class="eyebrow">Supabase</p>
+          <h1>Demo de tareas</h1>
+        </div>
+      </header>
+
+      <section class="panel">
+        <form id="formTarea" class="formulario">
+          <label for="inputTarea">Nueva tarea</label>
+          <div class="form-row">
+            <input id="inputTarea" type="text" maxlength="120" placeholder="Escribí una tarea" required />
+            <button type="submit">Guardar</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel">
+        <div id="estado" class="estado">Cargando tareas...</div>
+        <ul id="listaTareas" class="lista-tareas"></ul>
+      </section>
+    </main>
+  </body>
+</html>

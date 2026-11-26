@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin — Productos</title>
+    <link rel="stylesheet" href="style-admin.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  </head>
+  <body>
+
+
+
+<section id="zona-acceso-admin">
+  <h2>Panel de administración</h2>
+  <p id="estado-sesion-admin" role="status">No has iniciado sesión.</p>
+
+  <form id="form-login-admin">
+    <h3>Iniciar sesión</h3>
+    <label for="admin-login-correo">Correo</label>
+    <input id="admin-login-correo" type="email" required>
+
+    <label for="admin-login-password">Contraseña</label>
+    <input id="admin-login-password" type="password" required>
+
+    <button type="submit">Iniciar sesión</button>
+  </form>
+
+  <button type="button" id="btn-toggle-registro">No tengo cuenta — Registrarme</button>
+
+  <form id="form-registro-admin" hidden>
+    <h3>Registrar administrador</h3>
+    <label for="admin-registro-nombre">Nombre</label>
+    <input id="admin-registro-nombre" type="text" required>
+
+    <label for="admin-registro-correo">Correo</label>
+    <input id="admin-registro-correo" type="email" required>
+
+    <label for="admin-registro-password">Contraseña</label>
+    <input id="admin-registro-password" type="password" minlength="6" required>
+
+    <button type="submit">Crear cuenta de administrador</button>
+  </form>
+</section>
+
+<section id="panel-admin" hidden>
+  <div class="admin-header">
+    <p id="admin-bienvenida"></p>
+    <button id="btn-logout-admin" type="button">Cerrar sesión</button>
+  </div>
+
+    <button id="btn-traer" type="button">Traer productos</button>
+    <button id="btn-ver-todos" type="button">Ver todos los productos</button>
+    <div id="resultado"></div>
+    <div id="resultado2"></div>
+    <div id="resultado3"></div>
+
+    <section id="lista-productos" class="lista-productos"></section>
+
+    <button id="btn-agregar-obj" >Agregar producto</button>
+
+    <form id="form-producto">
+      <h2>Nuevo producto</h2>
+
+      <!-- admin.js copia aquí los campos del <template> de abajo -->
+      <div class="campos"></div>
+
+      <button type="submit">Guardar producto</button>
+    </form>
+
+    <!-- Modal de edición: showModal() lo abre encima de la página y bloquea lo de atrás.
+         Esc o el botón Cancelar lo cierran. -->
+    <dialog id="dlg-editar">
+      <form id="form-editar">
+        <h2 id="titulo-editar">Modificar producto</h2>
+
+        <div class="campos"></div>
+
+        <p id="error-editar" class="error-editar" role="alert"></p>
+
+        <div class="acciones-form">
+          <button type="submit" id="btn-guardar-editar">Guardar cambios</button>
+          <button type="button" id="btn-cancelar-editar">Cancelar</button>
+        </div>
+      </form>
+    </dialog>
+
+    <!-- Modal de confirmación: eliminar no se puede deshacer, así que se pide confirmar -->
+    <dialog id="dlg-eliminar">
+      <div class="contenido-dialogo">
+        <h2>Eliminar producto</h2>
+        <p id="texto-eliminar"></p>
+        <p id="error-eliminar" class="error-editar" role="alert"></p>
+
+        <div class="acciones-form">
+          <button type="button" id="btn-confirmar-eliminar">Eliminar</button>
+          <button type="button" id="btn-cancelar-eliminar">Cancelar</button>
+        </div>
+      </div>
+    </dialog>
+
+    <div id="notificacion"></div>
+</section>
+
+    <!-- Campos del producto, escritos UNA vez. admin.js los copia al formulario
+         "Nuevo producto" y al modal de edición. Sin id="" a propósito: los ids no
+         se pueden repetir y estos campos existen dos veces; se leen por name="". -->
+    <template id="tpl-campos-producto">
+      <p>
+        <label>Nombre
+          <input name="nombre" type="text" required />
+        </label>
+      </p>
+
+      <p>
+        <label>Descripción
+          <textarea name="descripcion" rows="3"></textarea>
+        </label>
+      </p>
+
+      <p>
+        <label>Precio
+          <input name="precio" type="number" step="any" min="0" required />
+        </label>
+      </p>
+
+      <p>
+        <label>Unidades
+          <input name="unidades" type="number" step="1" min="0" value="0" />
+        </label>
+      </p>
+
+      <p>
+        <label>Descuento (0 a 1, ej. 0.1 = 10%)
+          <input name="descuento" type="number" step="any" min="0" max="1" value="0" />
+        </label>
+      </p>
+
+      <p>
+        <label>
+          <input name="disponible" type="checkbox" checked />
+          Disponible
+        </label>
+      </p>
+
+      <p>
+        <label>Categorías (separadas por coma)
+          <input name="categorias" type="text" placeholder="tecnologia, accesorios" />
+        </label>
+      </p>
+
+      <p>
+        <label>URL de la imagen
+          <input name="image_url" type="url" />
+        </label>
+      </p>
+    </template>
+
+    <script src="js/supabaseClient.js"></script>
+    <script src="js/admin.js"></script>
+  </body>
+</html>
