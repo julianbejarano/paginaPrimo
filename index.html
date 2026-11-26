@@ -1,38 +1,146 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Demo Supabase</title>
-    <link rel="stylesheet" href="style.css" />
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="js/supabaseClient.js"></script>
-    <script src="js/datos.js"></script>
-    <script src="js/gestion.js"></script>
-  </head>
-  <body>
-    <main class="contenedor">
-      <header class="cabecera">
-        <div>
-          <p class="eyebrow">Supabase</p>
-          <h1>Demo de tareas</h1>
-        </div>
-      </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tienda — Inicio</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-      <section class="panel">
-        <form id="formTarea" class="formulario">
-          <label for="inputTarea">Nueva tarea</label>
-          <div class="form-row">
-            <input id="inputTarea" type="text" maxlength="120" placeholder="Escribí una tarea" required />
-            <button type="submit">Guardar</button>
-          </div>
-        </form>
-      </section>
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #f5f0eb;
+      color: #1a1208;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
 
-      <section class="panel">
-        <div id="estado" class="estado">Cargando tareas...</div>
-        <ul id="listaTareas" class="lista-tareas"></ul>
-      </section>
-    </main>
-  </body>
+    header {
+      background: #1a1208;
+      color: white;
+      text-align: center;
+      padding: 80px 24px 60px;
+    }
+    header h1 { font-size: 2.4rem; font-weight: 700; margin-bottom: 12px; }
+    header h1 span { color: #c8522a; }
+    header p { color: #b8b0a4; font-size: 1.05rem; max-width: 480px; margin: 0 auto; }
+
+    main { flex: 1; max-width: 720px; margin: 0 auto; padding: 48px 24px; width: 100%; }
+
+    .info {
+      background: #fffcf8;
+      border: 1px solid #e0d8ce;
+      border-radius: 14px;
+      padding: 28px;
+      margin-bottom: 32px;
+      box-shadow: 0 4px 24px rgba(26, 18, 8, 0.08);
+    }
+    .info h2 { font-size: 1.2rem; margin-bottom: 12px; }
+    .info p { color: #6a655b; font-size: 0.92rem; line-height: 1.6; margin-bottom: 10px; }
+    .info ul { list-style: none; padding: 0; }
+    .info ul li {
+      padding: 8px 0;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .info ul li::before {
+      content: '';
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #c8522a;
+      flex-shrink: 0;
+    }
+
+    .botones {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .boton {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 32px 20px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.05rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: 1px solid #e0d8ce;
+    }
+    .boton:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(26, 18, 8, 0.12); }
+
+    .boton-cliente {
+      background: #4a7c59;
+      color: white;
+      border-color: #4a7c59;
+    }
+    .boton-admin {
+      background: #1a1208;
+      color: white;
+      border-color: #1a1208;
+    }
+
+    .boton-icono { font-size: 2rem; }
+    .boton-desc { font-size: 0.78rem; font-weight: 400; opacity: 0.85; text-align: center; }
+
+    footer {
+      background: #1a1208;
+      color: #6a655b;
+      text-align: center;
+      padding: 20px 24px;
+      font-size: 0.82rem;
+    }
+
+    @media (max-width: 480px) {
+      header { padding: 56px 16px 40px; }
+      header h1 { font-size: 1.8rem; }
+      main { padding: 32px 16px; }
+      .botones { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Bienvenido a <span>la Tienda</span></h1>
+    <p>Tu tienda en linea con productos seleccionados, carrito de compras y seguimiento de pedidos.</p>
+  </header>
+
+  <main>
+    <div class="info">
+      <h2>Que puedes hacer aqui</h2>
+      <ul>
+        <li>Explorar el catalogo de productos con precios y descuentos</li>
+        <li>Agregar productos al carrito y confirmar tu pedido</li>
+        <li>Elegir envio a domicilio o recoger en tienda</li>
+        <li>Consultar el estado de tus pedidos en cualquier momento</li>
+        <li>Administrar productos, pedidos y clientes (si eres admin)</li>
+      </ul>
+    </div>
+
+    <div class="botones">
+      <a href="cliente.html" class="boton boton-cliente">
+        <span class="boton-icono">&#128100;</span>
+        Entrar como cliente
+        <span class="boton-desc">Comprar productos, ver tu perfil y tus pedidos</span>
+      </a>
+      <a href="admin.html" class="boton boton-admin">
+        <span class="boton-icono">&#9881;</span>
+        Entrar como admin
+        <span class="boton-desc">Gestionar productos, ver pedidos y clientes</span>
+      </a>
+    </div>
+  </main>
+
+  <footer>
+    Tienda demo &mdash; Proyecto Supabase
+  </footer>
+
+</body>
 </html>
